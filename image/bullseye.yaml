@@ -1,0 +1,25 @@
+version: 1
+
+# Needs a newer snapshot.
+sources:
+  - channel: trixie main
+    url: https://snapshot-cloudflare.debian.org/archive/debian/20251001T023456Z
+
+archs:
+  - amd64
+
+packages:
+  - bash
+  - cpio
+  - dash
+  - gcc
+  - ghdl
+  - ghdl-mcode
+  - ghdl-gcc
+  - ghdl-llvm
+  - ghdl-common
+  - gnat
+  - libc6
+  - perl
+  - strace
+  - tar
