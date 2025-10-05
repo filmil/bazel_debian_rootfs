@@ -30,6 +30,7 @@ readonly _ld_so="${_rootfs_dir}/lib64/ld-linux-x86-64.so.2"
 
 export LD_LIBRARY_PATH="${_ld_preload_path}"
 export PATH="${_path}"
+readonly _bin="/usr/bin/ghdl-mcode"
 
-"${_ld_so}" "${_rootfs_dir}/usr/bin/ghdl-mcode" "${@}"
+"${_ld_so}" "${_rootfs_dir}${_bin}" "${@}"
 
