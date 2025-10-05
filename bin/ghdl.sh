@@ -14,9 +14,13 @@ source "${RUNFILES_DIR:-/dev/null}/$f" 2>/dev/null || \
 # --- end runfiles.bash initialization v3 ---
 
 # For some reason rlocation gives up if it doesn't find the repo.
-_rootfs_dir="$(rlocation ${TEST_WORKSPACE:-bazel_debian_root}/image/rootfs)"
+_repo_name="$(runfiles_current_repository)/"
+if [[ "${_repo_name}" == "/" ]]; then
+  _repo_name="${TEST_REPOSITORY_NAME:-bazel_debian_rootfs}/"
+fi
+_rootfs_dir="$(rlocation ${_repo_name}image/rootfs)"
 if [[ ${_rootfs_dir} == "" ]]; then
-  echo "could not find rootfs: ${_rootfs_dir}"
+  echo "$0: could not find rootfs: ${_rootfs_dir}"
   exit 1
 fi
 
