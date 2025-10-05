@@ -8,7 +8,7 @@ oci_image(
     architecture = "amd64",
     os = "linux",
     tars = [
-        "@bullseye//:flat",
+        "@rootfs//:flat",
     ],
 )
 

@@ -14,12 +14,14 @@ packages:
   - dash
   - gcc
   - ghdl
-  - ghdl-mcode
+  - ghdl-common
   - ghdl-gcc
   - ghdl-llvm
-  - ghdl-common
+  - ghdl-mcode
   - gnat
   - libc6
+  - libtalloc2
   - perl
+  - proot
   - strace
   - tar

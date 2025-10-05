@@ -22,3 +22,24 @@ sh_test(
         "@bazel_tools//tools/bash/runfiles",
     ],
 )
+
+sh_binary(
+    name = "proot",
+    srcs = [ "proot.sh" ],
+    data = [
+        "//image:rootfs",
+        "@rules_shell//shell/runfiles",
+        "@bazel_tools//tools/bash/runfiles",
+    ],
+)
+
+sh_test(
+    name = "proot_ghdl",
+    srcs = ["proot_test.sh",],
+    data = [
+        ":proot",
+        "@rules_shell//shell/runfiles",
+        "@bazel_tools//tools/bash/runfiles",
+    ],
+)
+

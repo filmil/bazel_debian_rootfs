@@ -1,4 +1,4 @@
-load("@bazel_rules_ghdl//:rules.bzl", "ghdl_library", "ghdl_verilog")
+load("@bazel_debian_rootfs//:rules.bzl", "ghdl_library", "ghdl_verilog")
 
 ghdl_library(
     name = "lib",

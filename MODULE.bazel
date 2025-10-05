@@ -21,9 +21,9 @@ use_repo(multitool, "multitool")
 # apt
 apt = use_extension("@rules_distroless//apt:extensions.bzl", "apt")
 apt.install(
-    name = "bullseye",
-    lock = "//image:bullseye.lock.json",
-    manifest = "//image:bullseye.yaml",
+    name = "rootfs",
+    #lock = "//image:rootfs_definition.lock.json",
+    manifest = "//image:rootfs_definition.yaml",
 )
-use_repo(apt, "bullseye")
+use_repo(apt, "rootfs")
 
