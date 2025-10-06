@@ -3,7 +3,7 @@
 
 # --- begin runfiles.bash initialization v3 ---
 # Copy-pasted from the Bazel Bash runfiles library v3.
-set -uo pipefail; f=bazel_tools/tools/bash/runfiles/runfiles.bash
+set -o pipefail; f=bazel_tools/tools/bash/runfiles/runfiles.bash
 # shellcheck disable=SC1090
 source "${RUNFILES_DIR:-/dev/null}/$f" 2>/dev/null || \
   source "$(grep -sm1 "^$f " "${RUNFILES_MANIFEST_FILE:-/dev/null}" | cut -f2- -d' ')" 2>/dev/null || \
@@ -19,8 +19,36 @@ if [[ "${_repo_name}" == "/" ]]; then
   _repo_name="${TEST_REPOSITORY_NAME:-bazel_debian_rootfs}/"
 fi
 _rootfs_dir="$(rlocation ${_repo_name}image/rootfs)"
-if [[ ${_rootfs_dir} == "" ]]; then
+if [[ ${_rootfs_dir} == "/" ]]; then
   echo "$0: could not find rootfs: ${_rootfs_dir}"
+  exit 1
+fi
+
+readonly _gotopt2_runfiles_path="multitool/tools/gotopt2/gotopt2"
+#readonly _gotopt2_runfiles_path="rules_multitool++multitool+multitool/tools/gotopt2/gotopt2"
+readonly _gotopt_binary="$(rlocation ${_gotopt2_runfiles_path})"
+if [[ "${_gotopt_binary}" == "" ]]; then
+  echo ERROR: gotopt2 binary not found
+  exit 240
+fi
+
+GOTOPT2_OUTPUT=$($_gotopt_binary "${@}" <<EOF
+flags:
+- name: "binary-path"
+  type: string
+  help: "The full path of the binary to start"
+EOF
+)
+if [[ "$?" == "11" ]]; then
+  # When --help option is used, gotopt2 exits with code 11.
+  exit 1
+fi
+
+# Evaluate the output of the call to gotopt2, shell vars assignment is here.
+eval "${GOTOPT2_OUTPUT}"
+
+if [[ "${gotopt2_binary_path}" == "" ]]; then
+  echo "ERROR: flag --binary-path=... is required"
   exit 1
 fi
 
@@ -28,9 +56,10 @@ readonly _ld_preload_path="${_rootfs_dir}/lib/x86_64-linux-gnu:${_rootfs_dir}/us
 readonly _path="${_rootfs_dir}/bin:${_rootfs_dir}/usr/bin:${_rootfs_dir}/usr/lib/ghdl/gcc"
 readonly _ld_so="${_rootfs_dir}/lib64/ld-linux-x86-64.so.2"
 
-export LD_LIBRARY_PATH="${_ld_preload_path}"
-export PATH="${_path}"
-readonly _bin="/usr/bin/ghdl-mcode"
-
-"${_ld_so}" "${_rootfs_dir}${_bin}" "${@}"
+env \
+  LD_LIBRARY_PATH="${_ld_preload_path}" \
+  PATH="${_path}" \
+    "${_ld_so}" \
+      "${_rootfs_dir}${gotopt2_binary_path}" \
+      ${gotopt2_args__[@]}
 
