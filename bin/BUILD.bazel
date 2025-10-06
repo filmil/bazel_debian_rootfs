@@ -1,45 +1,25 @@
-load("@rules_shell//shell:sh_binary.bzl", "sh_binary")
-load("@rules_shell//shell:sh_test.bzl", "sh_test")
+load(":macros.bzl", "sh_binary_and_test")
 
 package(default_visibility = ["//visibility:public"])
 
-sh_binary(
+sh_binary_and_test(
     name = "ghdl",
-    srcs = [ "ghdl.sh" ],
-    data = [
-        "//image:rootfs",
-        "@rules_shell//shell/runfiles",
-        "@bazel_tools//tools/bash/runfiles",
-    ],
+    binary_cmd = "/usr/bin/ghdl-mcode",
 )
 
-sh_test(
-    name = "test_ghdl",
-    srcs = ["ghdl_test.sh",],
-    data = [
-        ":ghdl",
-        "@rules_shell//shell/runfiles",
-        "@bazel_tools//tools/bash/runfiles",
-    ],
-)
-
-sh_binary(
+sh_binary_and_test(
     name = "proot",
-    srcs = [ "proot.sh" ],
+)
+
+# A generic rootfs based binary runner.
+sh_binary(
+    name = "run",
+    srcs = [ "run.sh" ],
     data = [
         "//image:rootfs",
         "@rules_shell//shell/runfiles",
         "@bazel_tools//tools/bash/runfiles",
-    ],
-)
-
-sh_test(
-    name = "proot_ghdl",
-    srcs = ["proot_test.sh",],
-    data = [
-        ":proot",
-        "@rules_shell//shell/runfiles",
-        "@bazel_tools//tools/bash/runfiles",
+        "@multitool//tools/gotopt2",
     ],
 )
 
