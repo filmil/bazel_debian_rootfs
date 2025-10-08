@@ -77,3 +77,6 @@ cd integration && bazel build //:lib
   this.
 * Attempt #1, using docker: https://hdlfactory.com/post/2025/02/11/bazel-rules-for-build-in-docker-or-bid/
 * Attempt #2, using Nix: https://hdlfactory.com/post/2024/04/20/nix-bazel-%EF%B8%8F/
+* https://github.com/lukasoyen/bazel_linux_packages: a repository that essentially does the same thing. I learned about it only *after* I implemented this. In my defense, [I got to the idea on my own][idea].
+
+[idea]: https://hdlfactory.com/post/2025/10/06/hermetic-ephemeral-reproducible-builds-take-three-1/
