@@ -2,7 +2,7 @@
 def _rootfs_impl(ctx):
     name = ctx.attr.name
     xrootfs = ctx.executable._xrootfs
-    image_tar = ctx.attr.src.files.to_list()[0]
+    image_tar = ctx.attr.image_tar.files.to_list()[0]
 
     output_dir = ctx.actions.declare_directory(name)
 
@@ -13,9 +13,8 @@ def _rootfs_impl(ctx):
 
     args.add("--image-tar", image_tar.path)
     args.add("--rootfs-dir", output_dir.path)
-    args.add("--marker", "HERE")
-    to_remove = ctx.attr.to_remove
-    args.add_all(to_remove, before_each="--rm")
+    args.add_all(ctx.attr.markers, before_each = "--marker")
+    args.add_all(ctx.attr.to_remove, before_each="--rm")
 
     ctx.actions.run(
         inputs = inputs,
@@ -33,13 +32,22 @@ def _rootfs_impl(ctx):
 
 rootfs = rule(
     implementation = _rootfs_impl,
+    doc = """Extract a rootfs from an OCI container image.
+
+    The resulting rootfs directory can be used to invoke binaries from,
+    for example.
+    """,
     attrs = {
-        "src": attr.label(
+        "image_tar": attr.label(
             allow_single_file = True,
             mandatory = True,
+            doc = "The image archive to extract from. Usually you need to build it first.",
         ),
         "to_remove": attr.string_list(
             doc = "file paths, relative to rootfs, to remove",
+        ),
+        "markers": attr.string_list(
+            doc = "file paths, relative to rootfs, to add",
         ),
         "_xrootfs": attr.label(
             default = "@multitool//tools/xrootfs",

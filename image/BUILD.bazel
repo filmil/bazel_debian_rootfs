@@ -33,7 +33,7 @@ filegroup(
 
 rootfs(
     name = "rootfs",
-    src = ":image.tar",
+    image_tar = ":image.tar",
     visibility = [ "//bin:__subpackages__"],
     # Links that haven't been installed, removing them otherwise bazel objects.
     to_remove = [
@@ -43,4 +43,8 @@ rootfs(
         "usr/share/man/man1/cpp-13.1",
         "usr/share/man/man1/cpp.1.gz",
     ],
+    # Files to add to xrootfs. The created files will be empty.
+    markers = [
+        "HERE",
+    ]
 )
