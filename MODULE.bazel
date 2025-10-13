@@ -1,5 +1,5 @@
 module(
-    name = "bazel_debian_rootfs",
+    name = "bazel_rootfs",
     version = "0.0.0",
 )
 

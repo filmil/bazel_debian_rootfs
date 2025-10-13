@@ -1,9 +1,8 @@
 version: 1
 
-# Needs a newer snapshot.
 sources:
-  - channel: trixie main
-    url: https://snapshot-cloudflare.debian.org/archive/debian/20251001T023456Z
+  - channel: noble main restricted universe multiverse
+    url: https://snapshot.ubuntu.com/ubuntu/
 
 archs:
   - amd64

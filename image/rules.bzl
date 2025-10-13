@@ -14,7 +14,8 @@ def _rootfs_impl(ctx):
     args.add("--image-tar", image_tar.path)
     args.add("--rootfs-dir", output_dir.path)
     args.add("--marker", "HERE")
-    args.add("--rm", "etc/rmt")
+    to_remove = ctx.attr.to_remove
+    args.add_all(to_remove, before_each="--rm")
 
     ctx.actions.run(
         inputs = inputs,
@@ -36,6 +37,9 @@ rootfs = rule(
         "src": attr.label(
             allow_single_file = True,
             mandatory = True,
+        ),
+        "to_remove": attr.string_list(
+            doc = "file paths, relative to rootfs, to remove",
         ),
         "_xrootfs": attr.label(
             default = "@multitool//tools/xrootfs",

@@ -5,10 +5,11 @@ module(
 
 bazel_dep(name = "bazel_skylib", version = "1.7.1")
 bazel_dep(name = "gotopt2", version = "2.2.2")
+bazel_dep(name = "rules_shell", version = "0.6.1")
 
-bazel_dep(name = "bazel_debian_rootfs", version = "0.0.0")
+bazel_dep(name = "bazel_rootfs", version = "0.0.0")
 local_path_override(
-    module_name = "bazel_debian_rootfs",
+    module_name = "bazel_rootfs",
     path = "../",
 )
 
