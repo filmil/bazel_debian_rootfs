@@ -28,4 +28,11 @@ rootfs(
     name = "rootfs",
     src = ":image.tar",
     visibility = [ "//bin:__subpackages__"],
+    to_remove = [
+        "etc/rmt",
+        "usr/share/doc/perl/Changes.gz",
+        "usr/share/doc/libxml2/NEWS.gz",
+        "usr/share/man/man1/cpp-13.1",
+        "usr/share/man/man1/cpp.1.gz",
+    ],
 )

@@ -16,7 +16,7 @@ source "${RUNFILES_DIR:-/dev/null}/$f" 2>/dev/null || \
 # For some reason rlocation gives up if it doesn't find the repo.
 _repo_name="$(runfiles_current_repository)/"
 if [[ "${_repo_name}" == "/" ]]; then
-  _repo_name="${TEST_REPOSITORY_NAME:-bazel_debian_rootfs}/"
+  _repo_name="${TEST_REPOSITORY_NAME:-bazel_rootfs}/"
 fi
 _rootfs_dir="$(rlocation ${_repo_name}image/rootfs)"
 if [[ ${_rootfs_dir} == "/" ]]; then

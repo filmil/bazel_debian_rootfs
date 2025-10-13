@@ -1,9 +1,9 @@
 # Bazel rules to support a debian rootfs
 
-[![Test status](https://github.com/filmil/bazel_debian_rootfs/actions/workflows/test.yml/badge.svg)](https://github.com/filmil/bazel_debian_rootfs/actions/workflows/test.yml)
-[![Publish BCR status](https://github.com/filmil/bazel_debian_rootfs/actions/workflows/publish-bcr.yml/badge.svg)](https://github.com/filmil/bazel_debian_rootfs/actions/workflows/publish-bcr.yml)
-[![Publish status](https://github.com/filmil/bazel_debian_rootfs/actions/workflows/publish.yml/badge.svg)](https://github.com/filmil/bazel_debian_rootfs/actions/workflows/publish.yml)
-[![Tag and Release status](https://github.com/filmil/bazel_debian_rootfs/actions/workflows/tag-and-release.yml/badge.svg)](https://github.com/filmil/bazel_debian_rootfs/actions/workflows/tag-and-release.yml)
+[![Test status](https://github.com/filmil/bazel_roofts/actions/workflows/test.yml/badge.svg)](https://github.com/filmil/bazel_roofts/actions/workflows/test.yml)
+[![Publish BCR status](https://github.com/filmil/bazel_roofts/actions/workflows/publish-bcr.yml/badge.svg)](https://github.com/filmil/bazel_roofts/actions/workflows/publish-bcr.yml)
+[![Publish status](https://github.com/filmil/bazel_roofts/actions/workflows/publish.yml/badge.svg)](https://github.com/filmil/bazel_roofts/actions/workflows/publish.yml)
+[![Tag and Release status](https://github.com/filmil/bazel_roofts/actions/workflows/tag-and-release.yml/badge.svg)](https://github.com/filmil/bazel_roofts/actions/workflows/tag-and-release.yml)
 
 The idea of this repository is to provide a [hermetic, ephemeral and
 reproducible][her] repository of prebuilt binaries, which can then be brought
