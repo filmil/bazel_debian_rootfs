@@ -105,5 +105,7 @@ def sh_binary_and_test(name, binary_cmd=None, test_cmd=None, **kwargs):
             ":{}".format(name),
             "@rules_shell//shell/runfiles",
             "@bazel_tools//tools/bash/runfiles",
-        ]
+        ],
+        size = "small",
     )
+
