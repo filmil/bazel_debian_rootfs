@@ -1,7 +1,13 @@
 # LICENSE sha256: c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4
 load("@rules_oci//oci:defs.bzl", "oci_image", "oci_load")
 load(":rules.bzl", "rootfs")
+load("@rules_zstd//zstd/decompress:defs.bzl", "zstd_decompress")
 
+
+zstd_decompress(
+    name = "nvc_deb_decompress",
+    src = "@nvc_deb//:data.tar.zst",
+)
 
 oci_image(
     name = "image",
@@ -9,6 +15,7 @@ oci_image(
     os = "linux",
     tars = [
         "@rootfs//:flat",
+        ":nvc_deb_decompress",
     ],
 )
 
@@ -28,6 +35,7 @@ rootfs(
     name = "rootfs",
     src = ":image.tar",
     visibility = [ "//bin:__subpackages__"],
+    # Links that haven't been installed, removing them otherwise bazel objects.
     to_remove = [
         "etc/rmt",
         "usr/share/doc/perl/Changes.gz",
